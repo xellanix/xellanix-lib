@@ -1,0 +1,8 @@
+ExcelHelper/
+.vs/
+x64/
+Xellanix Libraries/x64/
+*.sln
+*.vcxproj
+*.filters
+*.user
