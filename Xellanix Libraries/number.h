@@ -2378,6 +2378,11 @@ namespace xellanix::type
 			}
 		}
 
+		constexpr auto mod_floor() const
+		{
+
+		}
+
 		// Stream operators
 		friend decltype(auto) operator<<(std::wostream& out, const number& value)
 		{
