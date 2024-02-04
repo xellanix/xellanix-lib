@@ -1,0 +1,20 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    word-wrap: break-word;
+}
+
+.lighttheme {
+    background-color: #F7F7F7;
+    color: hsl(0, 0%, 19%);
+}
+
+.darktheme {
+    background-color: hsla(0, 0%, 13%, 100%);
+    color: hsl(0, 0%, 90%);
+}
