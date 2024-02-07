@@ -1,0 +1,47 @@
+[
+    {
+        "name": "Arithmetics",
+        "items": [
+            {
+                "name": "number",
+                "type": "object",
+                "namespace": "xellanix::type",
+                "infile": "number.h",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            },
+            {
+                "name": "equal",
+                "type": "func",
+                "namespace": "xellanix::math",
+                "infile": "compare_helper.h",
+                "description": ""
+            },
+            {
+                "name": "not_equal",
+                "type": "func",
+                "namespace": "xellanix::math",
+                "infile": "compare_helper.h",
+                "description": ""
+            },
+            {
+                "name": "less",
+                "type": "func",
+                "namespace": "xellanix::math",
+                "infile": "compare_helper.h",
+                "description": ""
+            }
+        ]
+    },
+    {
+        "name": "Locale",
+        "items": [
+            {
+                "name": "utf8cvt",
+                "type": "object",
+                "namespace": "xellanix::cvt",
+                "infile": "locale_cvt.h",
+                "description": ""
+            }
+        ]
+    }
+]
