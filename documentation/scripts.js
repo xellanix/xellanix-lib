@@ -32,12 +32,20 @@ function getFeatures() {
                 document.getElementById("table_of_content_").appendChild(toc);
             }
 
+            const toc_subfeature = document.createElement("div");
+            toc_subfeature.className = "toc_item"
+
             element.items.forEach(subfeature => {
                 const item = document.createElement("div");
                 item.className = "feature_item";
                 {
+                    const subfeature_namespace = subfeature.namespace;
+                    const subfeature_name = subfeature.name;
+                    const subfeature_id = `${subfeature_namespace}::${subfeature_name}`;
+
                     const fullname = document.createElement("div");
                     fullname.className = "combine_text";
+                    fullname.id = subfeature_id;
                     {
                         const type_icon = document.createElement("img");
                         type_icon.className = "type_icon";
@@ -47,14 +55,27 @@ function getFeatures() {
                     {
                         const namespace_text = document.createElement("div");
                         namespace_text.className = "text_item subtitle namespace_text";
-                        namespace_text.innerText = `${subfeature.namespace}::`;
+                        namespace_text.innerText = `${subfeature_namespace}::`;
                         fullname.appendChild(namespace_text);
                     }
                     {
                         const feature_name = document.createElement("div");
                         feature_name.className = "text_item subtitle accent_color";
-                        feature_name.innerText = subfeature.name;
+                        feature_name.innerText = subfeature_name;
+
                         fullname.appendChild(feature_name);
+                    }
+                    {
+                        const toc_subfeature_item = document.createElement("div");
+                        toc_subfeature_item.className = "text_item";
+                        {
+                            const toc_subfeature_link = document.createElement("a");
+                            toc_subfeature_link.href = `#${subfeature_id}`;
+                            toc_subfeature_link.innerText = subfeature_name;
+                            toc_subfeature_item.appendChild(toc_subfeature_link);
+                        }
+
+                        toc_subfeature.appendChild(toc_subfeature_item);
                     }
                     
                     item.appendChild(fullname);
@@ -85,6 +106,8 @@ function getFeatures() {
                 
                 document.getElementById("all_features").appendChild(item);
             });
+
+            document.getElementById("table_of_content_").appendChild(toc_subfeature);
         });
     });
 };

@@ -110,7 +110,9 @@ body {
 }
 
 .navigation .table_of_content {
-    gap: 16px;
+    --toc-gap: 16px;
+
+    gap: var(--toc-gap);
     display: inline-flex;
     overflow: auto;
     flex-direction: column;
@@ -124,6 +126,20 @@ body {
 
 .navigation .table_of_content::-webkit-scrollbar {
     display: none;
+}
+
+.table_of_content .toc_item {
+    margin-left: 32px;
+    margin-top: calc(var(--toc-gap) / -1.25);
+}
+
+.toc_item a {
+    color: inherit;
+    text-decoration: none !important;
+}
+
+.toc_item a:hover {
+    opacity: .75;
 }
 
 .content_area {
