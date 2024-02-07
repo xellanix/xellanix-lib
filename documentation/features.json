@@ -7,7 +7,7 @@
                 "type": "object",
                 "namespace": "xellanix::type",
                 "infile": "number.h",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                "description": "A data type for holding integer/floating-point data."
             },
             {
                 "name": "equal",
