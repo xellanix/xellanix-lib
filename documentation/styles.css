@@ -131,6 +131,9 @@ body {
 .table_of_content .toc_item {
     margin-left: 32px;
     margin-top: calc(var(--toc-gap) / -1.25);
+    display: inline-flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .toc_item a {
