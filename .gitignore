@@ -6,3 +6,4 @@ Xellanix Libraries/x64/
 *.vcxproj
 *.filters
 *.user
+documentation/.vscode
