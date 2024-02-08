@@ -19,6 +19,11 @@ function getFeatures() {
     */
     fetch('./features.json').then((response) => response.json()).then(function(json) {
         let parsed = JSON.parse(JSON.stringify(json));
+        parsed.sort((x, y) => {
+            let a = x.name.toUpperCase(), b = y.name.toUpperCase();
+                
+            return a == b ? 0 : a > b ? 1 : -1;
+        });
         parsed.forEach(element => {
             {
                 const feature = document.createElement("div");
@@ -35,6 +40,11 @@ function getFeatures() {
             const toc_subfeature = document.createElement("div");
             toc_subfeature.className = "toc_item"
 
+            element.items.sort((x, y) => {
+                let a = x.name.toUpperCase(), b = y.name.toUpperCase();
+                
+                return a == b ? 0 : a > b ? 1 : -1;
+            });
             element.items.forEach(subfeature => {
                 const item = document.createElement("div");
                 item.className = "feature_item";
