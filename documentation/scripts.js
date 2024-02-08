@@ -1,6 +1,5 @@
-class a {
+let themeID = 1;
 
-}
 function getFeatures() {
     /*
     <div class="text_item title">Arithmetics</div>
@@ -60,6 +59,7 @@ function getFeatures() {
                         const type_icon = document.createElement("img");
                         type_icon.className = "type_icon";
                         type_icon.src = `assets/${subfeature.type}.svg`;
+                        type_icon.style.colorScheme = themeID == 1 ? "light" : "dark";
                         fullname.appendChild(type_icon);
                     }
                     {
