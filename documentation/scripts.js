@@ -23,101 +23,47 @@ function getFeatures() {
                 
             return a == b ? 0 : a > b ? 1 : -1;
         });
-        parsed.forEach(element => {
+        parsed.forEach(category => {
             {
-                const feature = document.createElement("div");
-                feature.className = "text_item title";
-                feature.innerText = element.name;
+                $("#all_features").append(`<div class="text_item title">${category.name}</div>`);
 
-                document.getElementById("all_features").appendChild(feature);
-
-                const toc = feature.cloneNode(true);
-                toc.className = "text_item subtitle";
-                document.getElementById("table_of_content_").appendChild(toc);
+                $("#table_of_content_").append(`<div class="text_item subtitle">${category.name}</div>`);
             }
 
-            const toc_subfeature = document.createElement("div");
-            toc_subfeature.className = "toc_item"
+            const toc_feature = document.createElement("div");
+            toc_feature.className = "toc_item"
 
-            element.items.sort((x, y) => {
+            category.items.sort((x, y) => {
                 let a = x.name.toUpperCase(), b = y.name.toUpperCase();
                 
                 return a == b ? 0 : a > b ? 1 : -1;
             });
-            element.items.forEach(subfeature => {
-                const item = document.createElement("div");
-                item.className = "feature_item";
-                {
-                    const subfeature_namespace = subfeature.namespace;
-                    const subfeature_name = subfeature.name;
-                    const subfeature_id = `${subfeature_namespace}::${subfeature_name}`;
+            category.items.forEach(feature => {
+                const feature_namespace = feature.namespace;
+                const feature_name = feature.name;
+                const feature_id = `${feature_namespace}::${feature_name}`;
 
-                    const fullname = document.createElement("div");
-                    fullname.className = "combine_text";
-                    fullname.id = subfeature_id;
-                    {
-                        const type_icon = document.createElement("img");
-                        type_icon.className = "type_icon";
-                        type_icon.src = `assets/${subfeature.type}.svg`;
-                        type_icon.style.colorScheme = themeID == 1 ? "light" : "dark";
-                        fullname.appendChild(type_icon);
-                    }
-                    {
-                        const namespace_text = document.createElement("div");
-                        namespace_text.className = "text_item subtitle namespace_text";
-                        namespace_text.innerText = `${subfeature_namespace}::`;
-                        fullname.appendChild(namespace_text);
-                    }
-                    {
-                        const feature_name = document.createElement("div");
-                        feature_name.className = "text_item subtitle accent_color";
-                        feature_name.innerText = subfeature_name;
-
-                        fullname.appendChild(feature_name);
-                    }
-                    {
-                        const toc_subfeature_item = document.createElement("div");
-                        toc_subfeature_item.className = "text_item";
-                        {
-                            const toc_subfeature_link = document.createElement("a");
-                            toc_subfeature_link.href = `#${subfeature_id}`;
-                            toc_subfeature_link.innerText = subfeature_name;
-                            toc_subfeature_item.appendChild(toc_subfeature_link);
-                        }
-
-                        toc_subfeature.appendChild(toc_subfeature_item);
-                    }
-                    
-                    item.appendChild(fullname);
-                }
-                {
-                    const infile = document.createElement("div");
-                    infile.className = "combine_text";
-                    {
-                        const available_in = document.createElement("div");
-                        available_in.className = "text_item light";
-                        available_in.innerText = "available in ";
-                        infile.appendChild(available_in);
-                    }
-                    {
-                        const filaname = document.createElement("div");
-                        filaname.className = "text_item subtitle";
-                        filaname.innerText = subfeature.infile;
-                        infile.appendChild(filaname);
-                    }
-
-                    item.appendChild(infile);
-                }
-
-                const description = document.createElement("div");
-                description.className = "text_item normal description_text";
-                description.innerText = subfeature.description;
-                item.appendChild(description);
+                const item = `<div class="feature_item">
+                    <div class="combine_text" id="${feature_id}">
+                        <img class="type_icon" src="assets/${feature.type}.svg" style="color-scheme: ${themeID == 1 ? "light" : "dark"};">
+                        <div class="text_item subtitle namespace_text">${feature_namespace}::</div>
+                        <div class="text_item subtitle accent_color">${feature_name}</div>
+                    </div>
+                    <div class="combine_text">
+                        <div class="text_item light">available in </div>
+                        <div class="text_item subtitle">${feature.infile}</div>
+                    </div>
+                    <div class="text_item normal description_text">${feature.description}</div>
+                </div>`;
                 
-                document.getElementById("all_features").appendChild(item);
+                $("#all_features").append(item);
+                
+                $(toc_feature).append(`<div class="text_item">
+                                            <a href="#${feature_id}">${feature_name}</a>
+                                        </div>`);
             });
 
-            document.getElementById("table_of_content_").appendChild(toc_subfeature);
+            $("#table_of_content_").append(toc_feature);
         });
     });
 };
