@@ -24,17 +24,33 @@ function getFeatures() {
             return a == b ? 0 : a > b ? 1 : -1;
         });
         parsed.forEach(category => {
+            $("#all_features").append(`<div class="text_item title">${category.name}</div>`);
             {
-                $("#all_features").append(`<div class="text_item title">${category.name}</div>`);
-
-                $("#table_of_content_").append(`<div class="text_item subtitle">${category.name}</div>`);
+                const $toc = $(`<div class="text_item subtitle expander">${category.name}</div>`).appendTo("#table_of_content_");
+                
+                $toc.click(function() {
+                    $(this).toggleClass("isExpanded");
+                    let content = $(this).next();
+                    
+                    if (content.css("max-height") !== "0px") {
+                        content.css({
+                            "min-height": 0,
+                            "max-height": 0
+                        });
+                    } else {
+                        content.css({
+                            "min-height": content.prop("scrollHeight") + "px",
+                            "max-height": content.prop("scrollHeight") + "px"
+                        });
+                    }
+                });
             }
 
             const toc_feature = document.createElement("div");
-            toc_feature.className = "toc_item"
+            toc_feature.className = "toc_item";
 
             category.items.sort((x, y) => {
-                let a = x.name.toUpperCase(), b = y.name.toUpperCase();
+                const a = x.name.toUpperCase(), b = y.name.toUpperCase();
                 
                 return a == b ? 0 : a > b ? 1 : -1;
             });
@@ -62,7 +78,6 @@ function getFeatures() {
                                             <a href="#${feature_id}">${feature_name}</a>
                                         </div>`);
             });
-
             $("#table_of_content_").append(toc_feature);
         });
     });

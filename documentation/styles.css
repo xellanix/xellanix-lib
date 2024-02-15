@@ -96,6 +96,7 @@ body {
     margin: var(--margin-size);
     padding: var(--padding-size);
     min-width: 235px;
+    max-width: 350px;
     height: calc(100dvh - var(--margin-size) * 2 - var(--padding-size) * 2);
     border-radius: 16px;
     gap: 16px;
@@ -134,6 +135,12 @@ body {
     display: inline-flex;
     flex-direction: column;
     gap: 8px;
+    
+    max-height: 0;
+    min-height: 0;
+    overflow: hidden;
+    transition: min-height ease-out, max-height ease-out;
+    transition-duration: 133ms;
 }
 
 .toc_item a {
@@ -143,6 +150,24 @@ body {
 
 .toc_item a:hover {
     opacity: .75;
+}
+
+.expander {
+    cursor: pointer;
+}
+  
+.expander:after {
+    content: '›';
+    font-weight: 400;
+    float: right;
+    margin-right: 4px;
+    margin-left: 32px;
+    transform: rotate(0deg) scale(1.2);
+    transition: transform 133ms ease-out;
+}
+  
+.isExpanded:after {
+    transform: rotate(90deg) scale(1.2);
 }
 
 .content_area {
