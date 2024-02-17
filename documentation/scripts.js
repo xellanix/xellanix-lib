@@ -60,8 +60,7 @@ function getFeatures() {
                 const item = `<section class="feature_item">
                     <div class="combine_text" id="${feature_id}">
                         <img class="type_icon" src="assets/${feature.type}.svg" style="color-scheme: ${themeID == 1 ? "light" : "dark"};">
-                        <div class="text_item subtitle namespace_text">${feature_namespace}::</div>
-                        <div class="text_item subtitle accent_color">${feature_name}</div>
+                        <div class="text_item subtitle namespace_text">${feature_namespace}::<div class="accent_color">${feature_name}</div></div>
                     </div>
                     <div class="combine_text">
                         <div class="text_item light">available in </div>
