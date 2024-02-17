@@ -57,7 +57,7 @@ function getFeatures() {
                 const feature_name = feature.name;
                 const feature_id = `${feature_namespace}::${feature_name}`;
 
-                const item = `<div class="feature_item">
+                const item = `<section class="feature_item">
                     <div class="combine_text" id="${feature_id}">
                         <img class="type_icon" src="assets/${feature.type}.svg" style="color-scheme: ${themeID == 1 ? "light" : "dark"};">
                         <div class="text_item subtitle namespace_text">${feature_namespace}::</div>
@@ -67,8 +67,8 @@ function getFeatures() {
                         <div class="text_item light">available in </div>
                         <div class="text_item subtitle">${feature.infile}</div>
                     </div>
-                    <div class="text_item normal description_text">${feature.description}</div>
-                </div>`;
+                    <p class="text_item normal description_text">${feature.description}</p>
+                </section>`;
                 
                 $("#all_features").append(item);
                 
