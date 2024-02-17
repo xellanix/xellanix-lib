@@ -1,5 +1,11 @@
 let themeID = 1;
 
+function sortByName(x, y) {
+    const a = x.name.toUpperCase(), b = y.name.toUpperCase();
+
+    return a == b ? 0 : a > b ? 1 : -1;
+}
+
 function getFeatures() {
     /*
     <div class="text_item title">Arithmetics</div>
@@ -18,12 +24,9 @@ function getFeatures() {
     */
     fetch('./features.json').then((response) => response.json()).then(function(json) {
         let parsed = JSON.parse(JSON.stringify(json));
-        parsed.sort((x, y) => {
-            let a = x.name.toUpperCase(), b = y.name.toUpperCase();
-                
-            return a == b ? 0 : a > b ? 1 : -1;
-        });
-        parsed.forEach(category => {
+        $("#xlib-version").text(`version ${parsed.version}`);
+
+        parsed.xlib.sort(sortByName).forEach(category => {
             $("#all_features").append(`<div class="text_item title">${category.name}</div>`);
             {
                 const $toc = $(`<div class="text_item subtitle expander">${category.name}</div>`).appendTo("#table_of_content_");
@@ -49,12 +52,7 @@ function getFeatures() {
             const toc_feature = document.createElement("div");
             toc_feature.className = "toc_item";
 
-            category.items.sort((x, y) => {
-                const a = x.name.toUpperCase(), b = y.name.toUpperCase();
-                
-                return a == b ? 0 : a > b ? 1 : -1;
-            });
-            category.items.forEach(feature => {
+            category.items.sort(sortByName).forEach(feature => {
                 const feature_namespace = feature.namespace;
                 const feature_name = feature.name;
                 const feature_id = `${feature_namespace}::${feature_name}`;

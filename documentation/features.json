@@ -1,350 +1,359 @@
-[
-    {
-        "name": "Utility",
-        "items": [
-            {
-                "name": "cast_to",
-                "type": "func",
-                "namespace": "xellanix::utility",
-                "infile": "utility.h",
-                "description": ""
-            },
-            {
-                "name": "make_signed",
-                "type": "func",
-                "namespace": "xellanix::utility",
-                "infile": "utility.h",
-                "description": ""
-            },
-            {
-                "name": "make_unsigned",
-                "type": "func",
-                "namespace": "xellanix::utility",
-                "infile": "utility.h",
-                "description": ""
-            },
-            {
-                "name": "make_array",
-                "type": "func",
-                "namespace": "xellanix::utility",
-                "infile": "utility.h",
-                "description": ""
-            }
-        ]
-    },
-    {
-        "name": "Arithmetic",
-        "items": [
-            {
-                "name": "number",
-                "type": "object",
-                "namespace": "xellanix::type",
-                "infile": "number.h",
-                "description": "A data type for holding integer or floating-point data."
-            }
-        ]
-    },
-    {
-        "name": "Arithmetic Helper",
-        "items": [
-            {
-                "name": "nmin",
-                "type": "func",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "nmax",
-                "type": "func",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "limit_range",
-                "type": "func",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "is_same_limit",
-                "type": "func",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            }
-        ]
-    },
-    {
-        "name": "Arithmetic Type Trait",
-        "items": [
-            {
-                "name": "enable_if_arithm",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_arithms",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_arithm_t",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_arithms_t",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_integral",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_integrals",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_floating_point",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_floating_points",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "is_same_r_v",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_same",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_same_t",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_any_numerics",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_signed",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_unsigned",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            },
-            {
-                "name": "enable_if_any_signed",
-                "type": "alias",
-                "namespace": "xellanix::type::helper",
-                "infile": "number_helper.h",
-                "description": ""
-            }
-        ]
-    },
-    {
-        "name": "Arithmetic Logical",
-        "items": [
-            {
-                "name": "is_negative",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_logical.h",
-                "description": ""
-            },
-            {
-                "name": "is_positive",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_logical.h",
-                "description": ""
-            },
-            {
-                "name": "is_inf",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_logical.h",
-                "description": ""
-            },
-            {
-                "name": "is_nan",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_logical.h",
-                "description": ""
-            },
-            {
-                "name": "is_divres_int",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_logical.h",
-                "description": ""
-            }
-        ]
-    },
-    {
-        "name": "Arithmetic Comparer",
-        "items": [
-            {
-                "name": "equal",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "compare_helper.h",
-                "description": ""
-            },
-            {
-                "name": "not_equal",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "compare_helper.h",
-                "description": ""
-            },
-            {
-                "name": "less",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "compare_helper.h",
-                "description": ""
-            },
-            {
-                "name": "less_eq",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "compare_helper.h",
-                "description": ""
-            },
-            {
-                "name": "greater",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "compare_helper.h",
-                "description": ""
-            },
-            {
-                "name": "greater_eq",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "compare_helper.h",
-                "description": ""
-            }
-        ]
-    },
-    {
-        "name": "Arithmetic Operation",
-        "items": [
-            {
-                "name": "abs",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_op.h",
-                "description": ""
-            },
-            {
-                "name": "ceil",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_op.h",
-                "description": ""
-            },
-            {
-                "name": "floor",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_op.h",
-                "description": ""
-            },
-            {
-                "name": "trunc",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_op.h",
-                "description": ""
-            },
-            {
-                "name": "mod",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_op.h",
-                "description": ""
-            },
-            {
-                "name": "mod_floor",
-                "type": "func",
-                "namespace": "xellanix::math",
-                "infile": "math_op.h",
-                "description": ""
-            }
-        ]
-    },
-    {
-        "name": "Locale & Format",
-        "items": [
-            {
-                "name": "utf8cvt",
-                "type": "object",
-                "namespace": "xellanix::cvt",
-                "infile": "locale_cvt.h",
-                "description": ""
-            },
-            {
-                "name": "thousand_sep",
-                "type": "object",
-                "namespace": "xellanix::formatter",
-                "infile": "formatter.h",
-                "description": ""
-            },
-            {
-                "name": "add_num_sep",
-                "type": "func",
-                "namespace": "xellanix::formatter",
-                "infile": "formatter.h",
-                "description": ""
-            }
-        ]
-    }
-]
+{
+    "version": "0.0.0.0",
+    "xlib": [
+        {
+            "name": "Utility",
+            "items": [
+                {
+                    "name": "cast_to",
+                    "type": "func",
+                    "namespace": "xellanix::utility",
+                    "infile": "utility.h",
+                    "description": "Converting the source data type to another data type",
+                    "params": [
+                        
+                    ],
+                    "templateParams": [
+                        
+                    ]
+                },
+                {
+                    "name": "make_signed",
+                    "type": "func",
+                    "namespace": "xellanix::utility",
+                    "infile": "utility.h",
+                    "description": ""
+                },
+                {
+                    "name": "make_unsigned",
+                    "type": "func",
+                    "namespace": "xellanix::utility",
+                    "infile": "utility.h",
+                    "description": ""
+                },
+                {
+                    "name": "make_array",
+                    "type": "func",
+                    "namespace": "xellanix::utility",
+                    "infile": "utility.h",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Arithmetic",
+            "items": [
+                {
+                    "name": "number",
+                    "type": "object",
+                    "namespace": "xellanix::type",
+                    "infile": "number.h",
+                    "description": "A data type for holding integer or floating-point data."
+                }
+            ]
+        },
+        {
+            "name": "Arithmetic Helper",
+            "items": [
+                {
+                    "name": "nmin",
+                    "type": "func",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "nmax",
+                    "type": "func",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "limit_range",
+                    "type": "func",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "is_same_limit",
+                    "type": "func",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Arithmetic Type Trait",
+            "items": [
+                {
+                    "name": "enable_if_arithm",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_arithms",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_arithm_t",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_arithms_t",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_integral",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_integrals",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_floating_point",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_floating_points",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "is_same_r_v",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_same",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_same_t",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_any_numerics",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_signed",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_unsigned",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "enable_if_any_signed",
+                    "type": "alias",
+                    "namespace": "xellanix::type::helper",
+                    "infile": "number_helper.h",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Arithmetic Logical",
+            "items": [
+                {
+                    "name": "is_negative",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_logical.h",
+                    "description": ""
+                },
+                {
+                    "name": "is_positive",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_logical.h",
+                    "description": ""
+                },
+                {
+                    "name": "is_inf",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_logical.h",
+                    "description": ""
+                },
+                {
+                    "name": "is_nan",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_logical.h",
+                    "description": ""
+                },
+                {
+                    "name": "is_divres_int",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_logical.h",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Arithmetic Comparer",
+            "items": [
+                {
+                    "name": "equal",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "compare_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "not_equal",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "compare_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "less",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "compare_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "less_eq",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "compare_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "greater",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "compare_helper.h",
+                    "description": ""
+                },
+                {
+                    "name": "greater_eq",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "compare_helper.h",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Arithmetic Operation",
+            "items": [
+                {
+                    "name": "abs",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_op.h",
+                    "description": ""
+                },
+                {
+                    "name": "ceil",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_op.h",
+                    "description": ""
+                },
+                {
+                    "name": "floor",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_op.h",
+                    "description": ""
+                },
+                {
+                    "name": "trunc",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_op.h",
+                    "description": ""
+                },
+                {
+                    "name": "mod",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_op.h",
+                    "description": ""
+                },
+                {
+                    "name": "mod_floor",
+                    "type": "func",
+                    "namespace": "xellanix::math",
+                    "infile": "math_op.h",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "name": "Locale & Format",
+            "items": [
+                {
+                    "name": "utf8cvt",
+                    "type": "object",
+                    "namespace": "xellanix::cvt",
+                    "infile": "locale_cvt.h",
+                    "description": ""
+                },
+                {
+                    "name": "thousand_sep",
+                    "type": "object",
+                    "namespace": "xellanix::formatter",
+                    "infile": "formatter.h",
+                    "description": ""
+                },
+                {
+                    "name": "add_num_sep",
+                    "type": "func",
+                    "namespace": "xellanix::formatter",
+                    "infile": "formatter.h",
+                    "description": ""
+                }
+            ]
+        }
+    ]
+}
