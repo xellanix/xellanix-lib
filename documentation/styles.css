@@ -195,7 +195,7 @@ body {
 }
 
 .feature_item .type_icon {
-    height: 65%;
+    height: calc(24px * .65 + 14px);
     margin-right: 14px;
 }
 
@@ -210,4 +210,5 @@ body {
 
 .feature_item .description_text {
     margin-top: 8px;
+    font-size: 20px;
 }
