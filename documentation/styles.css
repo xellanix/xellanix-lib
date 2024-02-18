@@ -199,7 +199,7 @@ body {
     margin-right: 14px;
 }
 
-.feature_item .namespace_text {
+.feature_item .feature_compl_name {
     background-color: var(--overlay-color);
     box-shadow: -2.5px 0px 48px 0px rgba(0, 0, 0, .15);
     border-radius: 8px;
@@ -209,6 +209,9 @@ body {
     padding-right: 14px;
     display: inline-flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1 1 0;
+    max-width: fit-content;
 }
 
 .feature_item .description_text {
