@@ -59,7 +59,7 @@ function getFeatures() {
 
                 const item = `<section class="feature_item">
                     <div class="combine_text" id="${feature_id}">
-                        <img class="type_icon" src="assets/${feature.type}.svg" style="color-scheme: ${themeID == 1 ? "light" : "dark"};">
+                        <img class="type_icon" src="assets/${feature.type}.svg">
                         <div class="text_item subtitle feature_compl_name">
                             <div>${feature_namespace}::</div>
                             <div class="accent_color">${feature_name}</div>
