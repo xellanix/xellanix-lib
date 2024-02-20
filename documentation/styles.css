@@ -3,15 +3,21 @@ html {
 }
 
 body {
+    --color-theme-duration: .333s;
+    
     font-family: 'Figtree', sans-serif;
     font-weight: 400;
     font-size: 16px;
     word-wrap: break-word;
+    transition: background-color ease-out, color ease-out;
+    transition-duration: var(--color-theme-duration);
 }
 
 .lighttheme {
     --bg-color: #F7F7F7;
     --overlay-color: #F7F7F7;
+    --theme-selector-bg: #d6d6d6;
+    --theme-selector-selected-bg: #F7F7F7;
 
     color-scheme: light;
     background-color: var(--bg-color);
@@ -21,6 +27,8 @@ body {
 .darktheme {
     --bg-color: hsla(0, 0%, 13%, 100%);
     --overlay-color: hsla(0, 0%, 23%, 100%);
+    --theme-selector-bg: hsla(0, 0%, 16%, 100%);
+    --theme-selector-selected-bg: hsla(0, 0%, 23%, 100%);
 
     background-color: var(--bg-color);
     color: hsl(0, 0%, 90%);
@@ -29,6 +37,8 @@ body {
 
 .accent_color {
     color: #1973C1;
+    transition: background-color ease-out, color ease-out;
+    transition-duration: var(--color-theme-duration);
 }
 
 .darktheme .accent_color {
@@ -110,6 +120,8 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
+    transition: background-color ease-out, color ease-out;
+    transition-duration: var(--color-theme-duration);
 }
 
 .navigation .table_of_content {
@@ -214,9 +226,70 @@ body {
     flex-wrap: wrap;
     flex: 1 1 0;
     max-width: fit-content;
+    transition: background-color ease-out, color ease-out;
+    transition-duration: var(--color-theme-duration);
 }
 
 .feature_item .description_text {
     margin-top: 6px;
     font-size: 16px;
+}
+
+#theme_selector {
+    --theme-selector-radius: 8px;
+
+    display: inline-flex;
+    flex-direction: row;
+    position: fixed;
+    right: 32px;
+    width: 88px;
+    background-color: var(--theme-selector-bg);
+    box-shadow: 0px 0px 42px 0px rgba(0, 0, 0, .15);
+    border-radius: var(--theme-selector-radius);
+    transition: width 175ms ease-out;
+}
+
+#theme_selector:hover {
+    width: 128px;
+}
+
+.theme_option_radio {
+    display: none;
+}
+
+.theme_option {
+    display: inline-flex;
+    flex-direction: row;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: var(--theme-selector-radius);
+    width: 24px;
+    transition: background-color 0ms ease-out, width 175ms ease-out;
+}
+
+.theme_option:hover {
+    width: 64px;
+}
+
+.theme_option img {
+    max-width: 24px;
+}
+
+.theme_option span {
+    display: inline-flex;
+    overflow: hidden;
+    word-wrap: nowrap;
+    align-self: stretch;
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+    margin-top: 3px;
+    margin-left: 4px;
+}
+
+.theme_option:hover span {
+    opacity: 1;
+}
+
+.theme_option_radio:checked + .theme_option {
+    background-color: var(--theme-selector-selected-bg);
 }

@@ -1,5 +1,13 @@
 let themeID = 1;
 
+$(".theme_option_radio").on("change", function() {
+    const _this = $(this);
+    if (_this.is(':checked')) {
+        const theme_id = _this.val();
+        $("#root").prop("class", theme_id);
+    };
+})
+
 function sortByName(x, y) {
     const a = x.name.toUpperCase(), b = y.name.toUpperCase();
 
@@ -29,9 +37,9 @@ function getFeatures() {
         parsed.xlib.sort(sortByName).forEach(category => {
             $("#all_features").append(`<div class="text_item title">${category.name}</div>`);
             {
-                const $toc = $(`<div class="text_item subtitle expander">${category.name}</div>`).appendTo("#table_of_content_");
+                const toc = $(`<div class="text_item subtitle expander">${category.name}</div>`).appendTo("#table_of_content_");
                 
-                $toc.click(function() {
+                toc.click(function() {
                     $(this).toggleClass("isExpanded");
                     let content = $(this).next();
                     
