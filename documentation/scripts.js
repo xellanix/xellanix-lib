@@ -1,12 +1,37 @@
-let themeID = 1;
+let is_dark_theme = false;
+
+function setURLParams(name, value, is_remove = false) {
+    const url = new URL(window.location.href);
+    const searchParams = url.searchParams;
+
+    if (!is_remove) searchParams.set(name, value);
+    else searchParams.delete(name);
+
+    // window.location.href = url.toString();
+    window.history.pushState({}, "", url.toString());
+};
 
 $(".theme_option_radio").on("change", function() {
     const _this = $(this);
     if (_this.is(':checked')) {
         const theme_id = _this.val();
         $("#root").prop("class", theme_id);
+        is_dark_theme = theme_id == "darktheme";
+        setURLParams("theme", theme_id, !is_dark_theme);
     };
-})
+});
+
+$(document).ready(function(e) {
+    console.log("trig");
+    const url = new URL(window.location.href);
+    const searchParams = url.searchParams;
+
+    const currentTheme = searchParams.get("theme");
+    if (currentTheme == "darktheme") {
+        $("#root").prop("class", currentTheme);
+        $("#dark_theme").prop("checked", true);
+    }
+});
 
 function goToLastHash() {
     const hash = window.location.hash.substring(1);
