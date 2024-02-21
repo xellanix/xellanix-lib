@@ -9,12 +9,17 @@
                     "type": "func",
                     "namespace": "xellanix::utility",
                     "infile": "utility.h",
-                    "description": "Converting the source data type to another data type",
-                    "params": [
-                        
-                    ],
-                    "templateParams": [
-                        
+                    "description": "Converting the source data type to another data type.",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr T",
+                            "returnDescription": "data with target type",
+                            "templateParam": "typename T, typename S",
+                            "templateParamDescription": "T = target type<br/>S = source type",
+                            "functionParam": "S const value",
+                            "functionParamDescription": "value = data to be converted",
+                            "definedType": ["T", "S"]
+                        }
                     ]
                 },
                 {

@@ -8,10 +8,38 @@ $(".theme_option_radio").on("change", function() {
     };
 })
 
+function goToLastHash() {
+    const hash = window.location.hash.substring(1);
+    const targetElement = document.getElementById(hash);
+
+    if (targetElement) {
+        const targetPosition = targetElement.offsetTop;
+        $("#all_features").scrollTop(targetPosition);
+    }
+}
+
 function sortByName(x, y) {
     const a = x.name.toUpperCase(), b = y.name.toUpperCase();
 
     return a == b ? 0 : a > b ? 1 : -1;
+}
+
+function setSyntaxColor(syntax = "", definedTypes = [""]) {
+    const keywords = ["const", "constexpr", "typename"];
+    const primitives = ["int", "double"];
+
+    let colorize = syntax;
+    for (const keyword of keywords) {
+        colorize = colorize.replace(new RegExp(`\\b${keyword}\\b`, "g"), '<span class="keyword">$&</span>');
+    }
+    for (const primitive of primitives) {
+        colorize = colorize.replace(new RegExp(`\\b${primitive}\\b`, "g"), '<span class="primitive">$&</span>');
+    }
+    for (const definedType of definedTypes) {
+        colorize = colorize.replace(new RegExp(`\\b${definedType}\\b`, "g"), '<span class="definedType">$&</span>');
+    }
+
+    return colorize;
 }
 
 function getFeatures() {
@@ -65,6 +93,40 @@ function getFeatures() {
                 const feature_name = feature.name;
                 const feature_id = `${feature_namespace}::${feature_name}`;
 
+                let params = "";
+                if (feature.anyParams) {
+                    params += '<div class="text_item subtitle" style="margin-top: 6px">Syntax</div>';
+                    params += '<div class="syntax-container">';
+                    feature.anyParams.forEach(param => {
+                        /*
+                        < = &lt;
+                        > = &gt;
+                        " = &quot;
+                        & = &amp;
+                        */
+
+                        const syntax = `${param.returnType} ${feature_name}&lt;${param.templateParam}&gt;(${param.functionParam})`;
+                        params += `<div>
+                            <p class="text_item">${setSyntaxColor(syntax, param.definedType)}</p>
+                            <div class="syntax-description-root">
+                                <div class="syntax-description">
+                                    <p class="description-type">Template Parameter:</p>
+                                    <p class="description-value">${param.templateParamDescription}</p>
+                                </div>
+                                <div class="syntax-description">
+                                    <p class="description-type">Parameter:</p>
+                                    <p class="description-value">${param.functionParamDescription}</p>
+                                </div>
+                                <div class="syntax-description">
+                                    <p class="description-type">Return Value:</p>
+                                    <p class="description-value">${param.returnDescription}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                    params += '</div>';
+                }
+
                 const item = `<section class="feature_item">
                     <div class="combine_text" id="${feature_id}">
                         <img class="type_icon" src="assets/${feature.type}.svg">
@@ -78,6 +140,7 @@ function getFeatures() {
                         <div class="text_item subtitle">${feature.infile}</div>
                     </div>
                     <p class="text_item normal description_text">${feature.description}</p>
+                    ${params}
                 </section>`;
                 
                 $("#all_features").append(item);
@@ -88,6 +151,8 @@ function getFeatures() {
             });
             $("#table_of_content_").append(toc_feature);
         });
+
+        goToLastHash();
     });
 };
 getFeatures();
