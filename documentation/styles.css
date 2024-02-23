@@ -347,6 +347,7 @@ p {
     flex-direction: column;
     column-gap: 48px;
     row-gap: 4px;
+    opacity: .6;
 }
 
 .syntax-description {
