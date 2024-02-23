@@ -1,5 +1,5 @@
 {
-    "version": "1.1.0.1266",
+    "version": "1.1.0.1291",
     "xlib": [
         {
             "name": "Utility",
@@ -9,15 +9,15 @@
                     "type": "func",
                     "namespace": "xellanix::utility",
                     "infile": "utility.h",
-                    "description": "Converting the source data type to another data type.",
+                    "description": "Casts a value from one type (source) to another type (target).",
                     "anyParams": [
                         {
                             "returnType": "constexpr T",
-                            "returnDescription": "data with target type",
+                            "returnDescription": "a T value containing the converted value",
                             "templateParam": "typename T, typename S",
-                            "templateParamDescription": "T = target type<br/>S = source type",
+                            "templateParamDescription": "T: Desired target type<br/>S: Source type",
                             "functionParam": "S const value",
-                            "functionParamDescription": "value = data to be converted",
+                            "functionParamDescription": "value: The value to be cast, of type S",
                             "definedType": ["T", "S"]
                         }
                     ]
@@ -27,21 +27,54 @@
                     "type": "func",
                     "namespace": "xellanix::utility",
                     "infile": "utility.h",
-                    "description": ""
+                    "description": "Converts an integral or enumeration type T to its signed equivalent U.",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr U",
+                            "returnDescription": "A value of type U representing the signed version of n",
+                            "templateParam": "typename T",
+                            "templateParamDescription": "T: Input type to be converted",
+                            "functionParam": "T n",
+                            "functionParamDescription": "n: The input value of type T",
+                            "definedType": ["T", "U"]
+                        }
+                    ]
                 },
                 {
                     "name": "make_unsigned",
                     "type": "func",
                     "namespace": "xellanix::utility",
                     "infile": "utility.h",
-                    "description": ""
+                    "description": "Converts an integral or enumeration type T to its unsigned equivalent U.",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr U",
+                            "returnDescription": "A value of type U representing the unsigned version of n",
+                            "templateParam": "typename T",
+                            "templateParamDescription": "T: Input type to be converted",
+                            "functionParam": "T n",
+                            "functionParamDescription": "n: The input value of type T",
+                            "definedType": ["T", "U"]
+                        }
+                    ]
                 },
                 {
                     "name": "make_array",
                     "type": "func",
                     "namespace": "xellanix::utility",
                     "infile": "utility.h",
-                    "description": ""
+                    "description": "Creates an std::array by collecting any arguments. It automatically deduces the element type (first_t) based on the common type of all the arguments and initializes the array with the forwarded arguments.",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr std::array&lt;std::common_type_t&lt;T...&gt;, sizeof...(T)&gt;",
+                            "returnDescription": "An std::array object with the deduced element type first_t and size equal to the number of arguments (sizeof...(T))",
+                            "templateParam": "typename... T",
+                            "templateParamDescription": "T...: A pack of arguments of any types",
+                            "functionParam": "T&&...t",
+                            "functionParamDescription": "t: A pack of values to be inserted into the array",
+                            "definedType": ["T", "array", "common_type_t"]
+                        }
+                    ]
                 }
             ]
         },
@@ -53,7 +86,7 @@
                     "type": "object",
                     "namespace": "xellanix::type",
                     "infile": "number.h",
-                    "description": "A data type for holding integer or floating-point data."
+                    "description": "A data type for holding integral or floating-point data."
                 }
             ]
         },
