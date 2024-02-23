@@ -62,7 +62,7 @@ function setSyntaxColor(syntax = "", definedTypes = [""]) {
     }
     for (const definedType of definedTypes) {
         if (definedType == "") continue;
-        
+
         colorize = colorize.replace(new RegExp(`\\b${definedType}\\b`, "g"), '<span class="definedType">$&</span>');
     }
 
@@ -132,7 +132,7 @@ function getFeatures() {
                         & = &amp;
                         */
 
-                        const syntax = `${param.returnType} ${feature_name}&lt;${param.templateParam}&gt;(${param.functionParam})`;
+                        const syntax = `${param.returnType} ${feature_name}${param.templateParam !== "" ? `&lt;${param.templateParam}&gt;` : ""}(${param.functionParam})`;
                         params += `<div>
                             <p class="text_item">${setSyntaxColor(syntax, param.definedType)}</p>
                             <div class="syntax-description-root">
