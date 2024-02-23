@@ -61,6 +61,8 @@ function setSyntaxColor(syntax = "", definedTypes = [""]) {
         colorize = colorize.replace(new RegExp(`\\b${primitive}\\b`, "g"), '<span class="primitive">$&</span>');
     }
     for (const definedType of definedTypes) {
+        if (definedType == "") continue;
+        
         colorize = colorize.replace(new RegExp(`\\b${definedType}\\b`, "g"), '<span class="definedType">$&</span>');
     }
 
