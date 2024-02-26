@@ -24,6 +24,7 @@ p {
     --syntax-container-bg: #e9e9e9;
     --theme-selector-selected-bg: #F7F7F7;
     --accent-color: #1973C1;
+    --primitiveType-color: #5db52a;
     --definedType-color: #FF9409;
 
     color-scheme: light;
@@ -38,6 +39,7 @@ p {
     --syntax-container-bg: hsla(0, 0%, 20%, 100%);
     --theme-selector-selected-bg: hsla(0, 0%, 23%, 100%);
     --accent-color: hsla(200, 100%, 65%, 1);
+    --primitiveType-color: #a2e57b;
     --definedType-color: #FFC324;
 
     background-color: var(--bg-color);
@@ -334,7 +336,7 @@ p {
 }
 
 .primitive {
-    color: blue;
+    color: var(--primitiveType-color);
 }
 
 .definedType {
