@@ -1,5 +1,11 @@
 let is_dark_theme = false;
 
+function isAvailable(value = "") {
+    if (typeof value === "string" && value.length === 0) return false;
+    else if (value === null) return false;
+    else return true;
+}
+
 function setURLParams(name, value, is_remove = false) {
     const url = new URL(window.location.href);
     const searchParams = url.searchParams;
@@ -50,8 +56,8 @@ function sortByName(x, y) {
 }
 
 function setSyntaxColor(syntax = "", definedTypes = [""]) {
-    const keywords = ["const", "constexpr", "typename"];
-    const primitives = ["int", "double"];
+    const keywords = ["const", "constexpr", "typename", "decltype", "using"];
+    const primitives = ["int", "double", "bool", "auto"];
 
     let colorize = syntax;
     for (const keyword of keywords) {
@@ -131,23 +137,23 @@ function getFeatures() {
                         " = &quot;
                         & = &amp;
                         */
-
-                        const syntax = `${param.returnType} ${feature_name}${param.templateParam !== "" ? `&lt;${param.templateParam}&gt;` : ""}(${param.functionParam})`;
+                        
+                        const syntax = `${param.returnType} ${feature_name}${isAvailable(param.templateParam) ? `&lt;${param.templateParam}&gt;` : ""}(${param.functionParam})`;
                         params += `<div>
                             <p class="text_item">${setSyntaxColor(syntax, param.definedType)}</p>
                             <div class="syntax-description-root">
-                                <div class="syntax-description">
+                                ${isAvailable(param.templateParam) ? `<div class="syntax-description">
                                     <p class="description-type">Template Parameter:</p>
                                     <p class="description-value">${param.templateParamDescription}</p>
-                                </div>
-                                <div class="syntax-description">
+                                </div>` : ""}
+                                ${isAvailable(param.functionParam) ? `<div class="syntax-description">
                                     <p class="description-type">Parameter:</p>
                                     <p class="description-value">${param.functionParamDescription}</p>
-                                </div>
-                                <div class="syntax-description">
+                                </div>` : ""}
+                                ${isAvailable(param.returnType) ? `<div class="syntax-description">
                                     <p class="description-type">Return Value:</p>
                                     <p class="description-value">${param.returnDescription}</p>
-                                </div>
+                                </div>` : ""}
                             </div>
                         </div>`;
                     });

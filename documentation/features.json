@@ -13,7 +13,7 @@
                     "anyParams": [
                         {
                             "returnType": "constexpr T",
-                            "returnDescription": "a T value containing the converted value",
+                            "returnDescription": "A T value containing the converted value",
                             "templateParam": "typename T, typename S",
                             "templateParamDescription": "T: Desired target type<br/>S: Source type",
                             "functionParam": "S const value",
@@ -98,28 +98,80 @@
                     "type": "func",
                     "namespace": "xellanix::type::helper",
                     "infile": "number_helper.h",
-                    "description": ""
+                    "description": "Returns the minimum value for a numeric type. Equivalent to std::numeric_limits<T>::min().",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr decltype(auto)",
+                            "returnDescription": "The minimum value of the type T",
+                            "templateParam": "typename T",
+                            "templateParamDescription": "T: The type of the value to find the minimum of. It must be an arithmetic type (e.g., int, float, double)",
+                            "functionParam": "",
+                            "functionParamDescription": "",
+                            "definedType": [
+                                "T"
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": "nmax",
                     "type": "func",
                     "namespace": "xellanix::type::helper",
                     "infile": "number_helper.h",
-                    "description": ""
+                    "description": "Returns the maximum value for a numeric type. Equivalent to std::numeric_limits<T>::max().",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr decltype(auto)",
+                            "returnDescription": "The maximum value of the type T",
+                            "templateParam": "typename T",
+                            "templateParamDescription": "T: The type of the value to find the maximum of. It must be an arithmetic type (e.g., int, float, double)",
+                            "functionParam": "",
+                            "functionParamDescription": "",
+                            "definedType": [
+                                "T"
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": "limit_range",
                     "type": "func",
                     "namespace": "xellanix::type::helper",
                     "infile": "number_helper.h",
-                    "description": ""
+                    "description": "Returns the minimum and maximum representable values for a given numeric type. Equivalent to std::pair{ nmin<T>(), nmax<T>() }.",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr decltype(auto)",
+                            "returnDescription": "A std::pair<T, T> object, where the first element is the minimum value and the second element is the maximum value for the specified numeric type T",
+                            "templateParam": "typename T",
+                            "templateParamDescription": "T: The type of values to find the minimum and maximum of. It must be an arithmetic type (e.g., int, float, double)",
+                            "functionParam": "",
+                            "functionParamDescription": "",
+                            "definedType": [
+                                "T"
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": "is_same_limit",
                     "type": "func",
                     "namespace": "xellanix::type::helper",
                     "infile": "number_helper.h",
-                    "description": ""
+                    "description": "Checks if two numeric types share the same minimum and maximum representable values.",
+                    "anyParams": [
+                        {
+                            "returnType": "constexpr auto",
+                            "returnDescription": "true, if both LT and RT have the same minimum and maximum limits<br/>false, otherwise",
+                            "templateParam": "typename LT, typename RT",
+                            "templateParamDescription": "LT: Represents the first numeric type<br/>RT: Represents the second numeric type",
+                            "functionParam": "",
+                            "functionParamDescription": "",
+                            "definedType": [
+                                "LT", "RT"
+                            ]
+                        }
+                    ]
                 }
             ]
         },
