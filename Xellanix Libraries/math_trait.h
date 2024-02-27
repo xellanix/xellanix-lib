@@ -1,19 +1,10 @@
-#ifndef XELLANIX_NUMBER_HELPER_H
-#define XELLANIX_NUMBER_HELPER_H
-#endif // !XELLANIX_NUMBER_HELPER_H
-
-#ifndef XELLANIX_UTILITY_H
-#include "utility.h"
-#endif // !XELLANIX_UTILITY_H
+#ifndef XELLANIX_MATH_TRAIT_H
+#define XELLANIX_MATH_TRAIT_H
+#endif // !XELLANIX_MATH_TRAIT_H
 
 #include <utility>
-#include <limits>
 
-// Functions:
-// ipow, ceil, ceil2, floor, floor2
-// is based on
-// https://github.com/elbeno/constexpr/blob/master/src/include/cx_math.h
-namespace xellanix::type::helper::detail
+namespace xellanix::type::trait::detail
 {
 	template <typename... Types>
 	struct is_integral;
@@ -46,10 +37,8 @@ namespace xellanix::type::helper::detail
 	};
 }
 
-namespace xellanix::type::helper
+namespace xellanix::type::trait
 {
-	#pragma region TYPE ALIASING
-
 	template<typename T>
 	using enable_if_arithm = typename std::enable_if_t<std::is_arithmetic_v<T>, bool>;
 	template<typename... T>
@@ -88,36 +77,4 @@ namespace xellanix::type::helper
 	template<typename T>
 	using enable_if_any_signed = typename std::enable_if_t<std::is_signed_v<T> || std::is_unsigned_v<T>, bool>;
 
-	#pragma endregion
-
-	#pragma region NUMERIC LIMITS
-
-	template<typename T, enable_if_arithm<T> = true>
-	inline constexpr decltype(auto) nmin()
-	{
-		return (std::numeric_limits<T>::min)();
-	}
-
-	template<typename T, enable_if_arithm<T> = true>
-	inline constexpr decltype(auto) nmax()
-	{
-		return (std::numeric_limits<T>::max)();
-	}
-
-	template<typename T, enable_if_arithm<T> = true>
-	inline constexpr decltype(auto) limit_range()
-	{
-		return std::pair{ nmin<T>(), nmax<T>() };
-	}
-
-	template<typename LT, typename RT>
-	inline constexpr auto is_same_limit()
-	{
-		const auto lhs = xellanix::type::helper::limit_range<LT>();
-		const auto rhs = xellanix::type::helper::limit_range<RT>();
-
-		return lhs.first == rhs.first && lhs.second == rhs.second;
-	}
-
-	#pragma endregion
 }

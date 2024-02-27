@@ -6,6 +6,9 @@
 
 #include <array>
 
+#define GCC_COMPILER (defined __GNUG__ && !defined __clang__)
+#define MSVC_COMPILER (defined _MSC_VER)
+
 namespace xellanix::utility
 {
 	// cast from Source to Target type

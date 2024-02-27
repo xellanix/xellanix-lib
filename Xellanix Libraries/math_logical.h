@@ -8,7 +8,7 @@
 
 namespace xellanix::math
 {
-	template<typename Floating, xellanix::type::helper::enable_if_floating_point<Floating> = true>
+	template<typename Floating, xellanix::type::trait::enable_if_floating_point<Floating> = true>
 	inline constexpr bool is_negative(Floating value)
 	{
 		constexpr auto zero = Floating{ 0.0 };
@@ -31,37 +31,37 @@ namespace xellanix::math
 		return false;
 	}
 
-	template<typename Integral, xellanix::type::helper::enable_if_integral<Integral> = true>
+	template<typename Integral, xellanix::type::trait::enable_if_integral<Integral> = true>
 	inline constexpr bool is_negative(Integral value)
 	{
 		return value < Integral{ 0 };
 	}
 
-	template<typename T, xellanix::type::helper::enable_if_arithm<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_arithm<T> = true>
 	inline constexpr bool is_positive(T value)
 	{
 		return !is_negative(value);
 	}
 
-	template <typename Integral, xellanix::type::helper::enable_if_integral<Integral> = true>
+	template <typename Integral, xellanix::type::trait::enable_if_integral<Integral> = true>
 	inline constexpr bool is_inf(const Integral value)
 	{
 		return false;
 	}
 
-	template <typename Floating, xellanix::type::helper::enable_if_floating_point<Floating> = true>
+	template <typename Floating, xellanix::type::trait::enable_if_floating_point<Floating> = true>
 	inline constexpr bool is_inf(const Floating value)
 	{
 		return xellanix::math::detail::_is_inf(value);
 	}
 
-	template <typename Integral, xellanix::type::helper::enable_if_integral<Integral> = true>
+	template <typename Integral, xellanix::type::trait::enable_if_integral<Integral> = true>
 	inline constexpr bool is_nan(const Integral value)
 	{
 		return false;
 	}
 
-	template <typename Floating, xellanix::type::helper::enable_if_floating_point<Floating> = true>
+	template <typename Floating, xellanix::type::trait::enable_if_floating_point<Floating> = true>
 	inline constexpr bool is_nan(const Floating value)
 	{
 		return xellanix::math::detail::_is_nan(value);
@@ -74,7 +74,7 @@ namespace xellanix::math
 		return false;
 	}
 
-	template<typename L, typename R, xellanix::type::helper::enable_if_integrals<L, R> = true>
+	template<typename L, typename R, xellanix::type::trait::enable_if_integrals<L, R> = true>
 	inline constexpr bool is_divres_int(L lhs, R rhs)
 	{
 		return xellanix::math::mod(lhs, rhs) == 0;

@@ -4,9 +4,13 @@
 #define XELLANIX_NUMBER_H
 #endif // !XELLANIX_NUMBER_H
 
-#ifndef XELLANIX_COMPARE_HELPER_H
-#include "compare_helper.h"
-#endif // !XELLANIX_COMPARE_HELPER_H
+#ifndef XELLANIX_MATH_LIMIT_H
+#include "math_limit.h"
+#endif // !XELLANIX_MATH_LIMIT_H
+
+#ifndef XELLANIX_MATH_COMPARE_H
+#include "math_compare.h"
+#endif // !XELLANIX_MATH_COMPARE_H
 
 #ifndef XELLANIX_MATH_LOGICAL_H
 #include "math_logical.h"
@@ -32,8 +36,8 @@ namespace xellanix::type
 
 		constexpr auto is_safe_sum(long long a, long long b) const
 		{
-			if (((b > 0) && (a > (helper::nmax<long long>() - b))) ||
-				((b < 0) && (a < (helper::nmin<long long>() - b))))
+			if (((b > 0) && (a > (limit::nmax<long long>() - b))) ||
+				((b < 0) && (a < (limit::nmin<long long>() - b))))
 			{
 				return false;
 			}
@@ -42,8 +46,8 @@ namespace xellanix::type
 		}
 		constexpr auto is_safe_subtract(long long a, long long b) const
 		{
-			if (((b > 0) && (a < ((std::numeric_limits<long long>::min)() + b))) || 
-				((b < 0) && (a > ((std::numeric_limits<long long>::max)() + b))))
+			if (((b > 0) && (a < (limit::nmin<long long>() + b))) ||
+				((b < 0) && (a > (limit::nmax<long long>() + b))))
 			{
 				return false;
 			}
@@ -54,15 +58,15 @@ namespace xellanix::type
 		{
 			if (a == 0 || b == 0) return { true, false };
 
-			constexpr auto lmin = (double)helper::nmin<long long>();
-			constexpr auto lmax = (double)helper::nmax<long long>();
+			constexpr auto lmin = (double)limit::nmin<long long>();
+			constexpr auto lmax = (double)limit::nmax<long long>();
 
 			const bool is_overflow_min = ((a < 0) != (b < 0)) && xellanix::math::greater(xellanix::math::abs(b), xellanix::math::abs(lmin / a));
 			const bool is_overflow_max = ((a < 0) == (b < 0)) && xellanix::math::greater(xellanix::math::abs(b), xellanix::math::abs(lmax / a));
 
 			if (is_overflow_max)
 			{
-				const bool is_overflow_max2 = ((a < 0) == (b < 0)) && xellanix::math::greater(xellanix::math::abs(b), xellanix::math::abs((double)helper::nmax<unsigned long long>() / a));
+				const bool is_overflow_max2 = ((a < 0) == (b < 0)) && xellanix::math::greater(xellanix::math::abs(b), xellanix::math::abs((double)limit::nmax<unsigned long long>() / a));
 				
 				return { false, !is_overflow_max2 };
 			}
@@ -135,7 +139,7 @@ namespace xellanix::type
 			if (is_negative)
 			{
 				// Negative result
-				if (xellanix::math::greater(lhs, helper::nmax<long long>())) return number{ infinity() };
+				if (xellanix::math::greater(lhs, limit::nmax<long long>())) return number{ infinity() };
 
 				const auto _ll = xellanix::utility::make_signed<UnsignedT, long long>(lhs);
 				if (auto _is_safe = is_safe_multiply(_ll, rhs); _is_safe.first)
@@ -154,7 +158,7 @@ namespace xellanix::type
 
 			// Positive result
 			const auto urhs = xellanix::utility::make_unsigned(rhs);
-			const bool is_overflow = xellanix::math::greater(urhs, (double)helper::nmax<unsigned long long>() / lhs);
+			const bool is_overflow = xellanix::math::greater(urhs, (double)limit::nmax<unsigned long long>() / lhs);
 			if (is_overflow) return number{ infinity() };
 			else
 			{
@@ -184,7 +188,7 @@ namespace xellanix::type
 
 				constexpr auto ABS_LLONG_MIN = 9223372036854775808;
 				if (xellanix::math::greater(div, ABS_LLONG_MIN)) return number{ negative_infinity() };
-				else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ helper::nmin<long long>() };
+				else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ limit::nmin<long long>() };
 
 				const auto div_s = xellanix::utility::cast_to<long long>(div);
 
@@ -212,7 +216,7 @@ namespace xellanix::type
 
 				constexpr auto ABS_LLONG_MIN = 9223372036854775808;
 				if (xellanix::math::greater(div, ABS_LLONG_MIN)) return number{ negative_infinity() };
-				else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ helper::nmin<long long>() };
+				else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ limit::nmin<long long>() };
 
 				const auto div_s = xellanix::utility::cast_to<long long>(div);
 
@@ -242,7 +246,7 @@ namespace xellanix::type
 
 					constexpr auto ABS_LLONG_MIN = 9223372036854775808;
 					if (xellanix::math::greater(div, ABS_LLONG_MIN)) return number{ negative_infinity() };
-					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ helper::nmin<long long>() };
+					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ limit::nmin<long long>() };
 
 					const auto div_s = xellanix::utility::cast_to<long long>(div);
 
@@ -254,7 +258,7 @@ namespace xellanix::type
 
 					constexpr auto ABS_LLONG_MIN = 9223372036854775808.0;
 					if (xellanix::math::greater(div, ABS_LLONG_MIN)) return number{ negative_infinity() };
-					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ helper::nmin<long long>() };
+					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ limit::nmin<long long>() };
 
 					return number{ div * (-1) };
 				}
@@ -291,7 +295,7 @@ namespace xellanix::type
 
 					constexpr auto ABS_LLONG_MIN = 9223372036854775808;
 					if (xellanix::math::greater(div, ABS_LLONG_MIN)) return number{ negative_infinity() };
-					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ helper::nmin<long long>() };
+					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ limit::nmin<long long>() };
 
 					const auto div_s = xellanix::utility::cast_to<long long>(div);
 
@@ -303,7 +307,7 @@ namespace xellanix::type
 
 					constexpr auto ABS_LLONG_MIN = 9223372036854775808.0;
 					if (xellanix::math::greater(div, ABS_LLONG_MIN)) return number{ negative_infinity() };
-					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ helper::nmin<long long>() };
+					else if (xellanix::math::equal(div, ABS_LLONG_MIN)) return number{ limit::nmin<long long>() };
 
 					return number{ div * (-1) };
 				}
@@ -325,14 +329,14 @@ namespace xellanix::type
 
 		// Negative Type
 		template<typename T, typename V>
-		constexpr helper::enable_if_signed<T> is_in_limit(V value) const
+		constexpr trait::enable_if_signed<T> is_in_limit(V value) const
 		{
 			return xellanix::math::less_eq((std::numeric_limits<T>::min)(), value);
 		}
 
 		// Positive Type
 		template<typename T, typename V>
-		constexpr helper::enable_if_unsigned<T> is_in_limit(V value) const
+		constexpr trait::enable_if_unsigned<T> is_in_limit(V value) const
 		{
 			return xellanix::math::less_eq(value, (std::numeric_limits<T>::max)());
 		}
@@ -433,7 +437,7 @@ namespace xellanix::type
 			m_variants = decltype(m_variants){ char(0) };
 		}
 
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		constexpr number(T value)
 		{
 			using variant_t = decltype(m_variants);
@@ -451,13 +455,13 @@ namespace xellanix::type
 				m_variants = std::move(_);
 			}
 			#endif // __cpp_char8_t
-			else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::helper::is_same_limit<wchar_t, unsigned short>()) ||
+			else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::limit::is_same_limit<wchar_t, unsigned short>()) ||
 							   std::is_same_v<T, char16_t>)
 			{
 				const variant_t _{ xellanix::utility::cast_to<unsigned short>(value) };
 				m_variants = std::move(_);
 			}
-			else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::helper::is_same_limit<wchar_t, unsigned int>()) ||
+			else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::limit::is_same_limit<wchar_t, unsigned int>()) ||
 							   std::is_same_v<T, unsigned long> || std::is_same_v<T, char32_t>)
 			{
 				const variant_t _{ xellanix::utility::cast_to<unsigned int>(value) };
@@ -610,7 +614,7 @@ namespace xellanix::type
 
 		//	Cast Functions
 		template<typename T>
-		constexpr helper::enable_if_arithm_t<T> cast_to() const
+		constexpr trait::enable_if_arithm_t<T> cast_to() const
 		{
 			const auto extractedValue = visit([](auto&& arg)
 			{
@@ -719,7 +723,7 @@ namespace xellanix::type
 		}
 
 		// Add operators
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		constexpr auto operator+(SignedT value) const
 		{
 			constexpr auto is_right_floating = std::is_floating_point_v<SignedT>;
@@ -787,7 +791,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		constexpr auto operator+(UnsignedT valueTemp) const
 		{
 			using _NonBoolT = typename std::conditional_t<std::is_same_v<std::remove_cv_t<UnsignedT>, bool>, unsigned char, UnsignedT>;
@@ -825,13 +829,13 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename T, helper::enable_if_any_signed<T> = true>
+		template<typename T, trait::enable_if_any_signed<T> = true>
 		friend constexpr auto operator+(T lhs, xellanix::type::number const& rhs)
 		{
 			return rhs + lhs;
 		}
 
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr auto operator+(T const& value) const
 		{
 			const auto lidx = index();
@@ -857,7 +861,7 @@ namespace xellanix::type
 		}
 
 		// Subtract operators
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		constexpr auto operator-(SignedT value) const
 		{
 			constexpr auto is_right_floating = std::is_floating_point<SignedT>;
@@ -924,7 +928,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		constexpr auto operator-(UnsignedT value) const
 		{
 			if (xellanix::math::equal(value, (UnsignedT)0))
@@ -968,7 +972,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		friend constexpr auto operator-(SignedT lhs_raw, xellanix::type::number const& rhs)
 		{
 			constexpr auto is_left_floating = std::is_floating_point_v<SignedT>;
@@ -1029,7 +1033,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		friend constexpr auto operator-(UnsignedT lhs_raw, xellanix::type::number const& rhs)
 		{
 			auto lhs = xellanix::utility::cast_to<unsigned long long>(lhs_raw);
@@ -1070,7 +1074,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr auto operator-(T const& value) const
 		{
 			const auto lidx = index();
@@ -1096,7 +1100,7 @@ namespace xellanix::type
 		}
 
 		// Multiply operators
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		constexpr auto operator*(SignedT value) const
 		{
 			constexpr auto is_right_floating = std::is_floating_point_v<SignedT>;
@@ -1177,10 +1181,10 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		constexpr auto operator*(UnsignedT valueTemp) const
 		{
-			using _NonBoolT = typename std::conditional_t<helper::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
+			using _NonBoolT = typename std::conditional_t<trait::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
 			_NonBoolT value = valueTemp;
 
 			if (xellanix::math::equal(value, (UnsignedT)1))
@@ -1197,7 +1201,7 @@ namespace xellanix::type
 			if (is_unsigned(lidx))
 			{
 				auto res = ull();
-				const bool is_overflow = xellanix::math::greater(value, (double)helper::nmax<unsigned long long>() / res);
+				const bool is_overflow = xellanix::math::greater(value, (double)limit::nmax<unsigned long long>() / res);
 				if (is_overflow) return number{ infinity() };
 				else
 				{
@@ -1223,13 +1227,13 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename T, helper::enable_if_any_signed<T> = true>
+		template<typename T, trait::enable_if_any_signed<T> = true>
 		friend constexpr auto operator*(T lhs, xellanix::type::number const& rhs)
 		{
 			return rhs * lhs;
 		}
 
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr auto operator*(T const& value) const
 		{
 			const auto lidx = index();
@@ -1255,7 +1259,7 @@ namespace xellanix::type
 		}
 
 		// Division operators
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		constexpr auto operator/(SignedT value) const
 		{
 			constexpr auto is_right_floating = std::is_floating_point_v<SignedT>;
@@ -1316,10 +1320,10 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		constexpr auto operator/(UnsignedT valueTemp) const
 		{
-			using _NonBoolT = typename std::conditional_t<helper::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
+			using _NonBoolT = typename std::conditional_t<trait::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
 			_NonBoolT value = valueTemp;
 
 			if (xellanix::math::equal(value, (UnsignedT)1))
@@ -1357,7 +1361,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		friend constexpr auto operator/(SignedT lhs_raw, xellanix::type::number const& rhs)
 		{
 			constexpr auto is_left_floating = std::is_floating_point_v<SignedT>;
@@ -1414,7 +1418,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		friend constexpr auto operator/(UnsignedT lhs_raw, xellanix::type::number const& rhs)
 		{
 			auto lhs = xellanix::utility::cast_to<unsigned long long>(lhs_raw);
@@ -1450,7 +1454,7 @@ namespace xellanix::type
 			}
 		}
 
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr auto operator/(T const& value) const
 		{
 			const auto lidx = index();
@@ -1476,7 +1480,7 @@ namespace xellanix::type
 		}
 
 		// Modulo operators
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		constexpr auto operator%(SignedT right) const
 		{
 			return visit([right, this](auto&& left)
@@ -1499,7 +1503,7 @@ namespace xellanix::type
 					{
 						if (xellanix::math::is_negative(right))
 						{
-							if (xellanix::math::greater(left, helper::nmax<long long>()))
+							if (xellanix::math::greater(left, limit::nmax<long long>()))
 							{
 								const auto absv = xellanix::math::abs(right);
 
@@ -1522,10 +1526,10 @@ namespace xellanix::type
 			});
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		constexpr auto operator%(UnsignedT valueTemp) const
 		{
-			using _NonBoolT = typename std::conditional_t<helper::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
+			using _NonBoolT = typename std::conditional_t<trait::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
 			_NonBoolT right = valueTemp;
 
 			return visit([right, this](auto&& left)
@@ -1536,7 +1540,7 @@ namespace xellanix::type
 				}
 				else if (is_negative())
 				{
-					if (xellanix::math::greater(right, helper::nmax<long long>()))
+					if (xellanix::math::greater(right, limit::nmax<long long>()))
 					{
 						const auto absv = xellanix::math::abs(left);
 
@@ -1557,7 +1561,7 @@ namespace xellanix::type
 			});
 		}
 
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		friend constexpr auto operator%(SignedT left, xellanix::type::number const& rhs)
 		{
 			return rhs.visit([left, &rhs](auto&& right)
@@ -1576,7 +1580,7 @@ namespace xellanix::type
 					{
 						if (xellanix::math::is_negative(left))
 						{
-							if (xellanix::math::greater(right, helper::nmax<long long>()))
+							if (xellanix::math::greater(right, limit::nmax<long long>()))
 							{
 								const auto absv = xellanix::math::abs(left);
 
@@ -1599,10 +1603,10 @@ namespace xellanix::type
 			});
 		}
 
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		friend constexpr auto operator%(UnsignedT valueTemp, xellanix::type::number const& rhs)
 		{
-			using _NonBoolT = typename std::conditional_t<helper::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
+			using _NonBoolT = typename std::conditional_t<trait::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
 			_NonBoolT left = valueTemp;
 
 			return rhs.visit([left, &rhs](auto&& right)
@@ -1613,7 +1617,7 @@ namespace xellanix::type
 				}
 				else if (rhs.is_negative())
 				{
-					if (xellanix::math::greater(left, helper::nmax<long long>()))
+					if (xellanix::math::greater(left, limit::nmax<long long>()))
 					{
 						const auto absv = xellanix::math::abs(right);
 
@@ -1634,7 +1638,7 @@ namespace xellanix::type
 			});
 		}
 
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr auto operator%(T const& value) const
 		{
 			const auto lidx = index();
@@ -1662,35 +1666,35 @@ namespace xellanix::type
 		// Arithmetic assignment operators
 		// operator= use default
 
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr decltype(auto) operator+=(T const& rhs)
 		{
 			m_variants = (operator+(rhs)).m_variants;
 			return *this;
 		}
 
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr decltype(auto) operator-=(T const& rhs)
 		{
 			m_variants = (operator-(rhs)).m_variants;
 			return *this;
 		}
 
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr decltype(auto) operator*=(T const& rhs)
 		{
 			m_variants = (operator*(rhs)).m_variants;
 			return *this;
 		}
 
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr decltype(auto) operator/=(T const& rhs)
 		{
 			m_variants = (operator/(rhs)).m_variants;
 			return *this;
 		}
 
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr decltype(auto) operator%=(T const& rhs)
 		{
 			m_variants = (operator%(rhs)).m_variants;
@@ -1716,12 +1720,12 @@ namespace xellanix::type
 					m_variants = xellanix::utility::cast_to<unsigned char>(value);
 				}
 				#endif // __cpp_char8_t
-				else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::helper::is_same_limit<wchar_t, unsigned short>()) ||
+				else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::limit::is_same_limit<wchar_t, unsigned short>()) ||
 								   std::is_same_v<T, char16_t>)
 				{
 					m_variants = xellanix::utility::cast_to<unsigned short>(value);
 				}
-				else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::helper::is_same_limit<wchar_t, unsigned int>()) ||
+				else if constexpr ((std::is_same_v<T, wchar_t> && xellanix::type::limit::is_same_limit<wchar_t, unsigned int>()) ||
 								   std::is_same_v<T, unsigned long> || std::is_same_v<T, char32_t>)
 				{
 					m_variants = xellanix::utility::cast_to<unsigned int>(value);
@@ -1832,7 +1836,7 @@ namespace xellanix::type
 
 		// Equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		constexpr bool operator==(T const rhs) const
 		{
 			const auto lidx = index();
@@ -1864,7 +1868,7 @@ namespace xellanix::type
 
 		// Equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		friend constexpr bool operator==(T const lhs, xellanix::type::number const& rhs)
 		{
 			return rhs == lhs;
@@ -1872,7 +1876,7 @@ namespace xellanix::type
 
 		// Equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr bool operator==(T const& rhs) const
 		{
 			const auto lidx = index();
@@ -1904,7 +1908,7 @@ namespace xellanix::type
 
 		// Not equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr bool operator!=(T const& rhs) const
 		{
 			return !operator==(rhs);
@@ -1912,7 +1916,7 @@ namespace xellanix::type
 
 		// Not equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		friend constexpr bool operator!=(T const lhs, xellanix::type::number const& rhs)
 		{
 			return rhs != lhs;
@@ -1920,7 +1924,7 @@ namespace xellanix::type
 
 		// Less than operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		constexpr bool operator<(T const rhs) const
 		{
 			const auto lidx = index();
@@ -1952,7 +1956,7 @@ namespace xellanix::type
 
 		// Less than operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		friend constexpr bool operator<(T const lhs, xellanix::type::number const& rhs)
 		{
 			return rhs > lhs;
@@ -1960,7 +1964,7 @@ namespace xellanix::type
 
 		// Less than operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr bool operator<(T const& rhs) const
 		{
 			const auto lidx = index();
@@ -1992,7 +1996,7 @@ namespace xellanix::type
 
 		// Less than or equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		constexpr bool operator<=(T const rhs) const
 		{
 			const auto lidx = index();
@@ -2024,7 +2028,7 @@ namespace xellanix::type
 
 		// Less than or equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		friend constexpr bool operator<=(T const lhs, xellanix::type::number const& rhs)
 		{
 			return rhs >= lhs;
@@ -2032,7 +2036,7 @@ namespace xellanix::type
 
 		// Less than or equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_same<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_same<T, xellanix::type::number> = true>
 		constexpr bool operator<=(T const& rhs) const
 		{
 			const auto lidx = index();
@@ -2064,7 +2068,7 @@ namespace xellanix::type
 
 		// Greater than operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr bool operator>(T const& rhs) const
 		{
 			return !operator<=(rhs);
@@ -2072,7 +2076,7 @@ namespace xellanix::type
 
 		// Greater than operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		friend constexpr bool operator>(T const lhs, xellanix::type::number const& rhs)
 		{
 			return rhs < lhs;
@@ -2080,7 +2084,7 @@ namespace xellanix::type
 
 		// Greater than or equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_any_numerics<T, xellanix::type::number> = true>
+		template<typename T, trait::enable_if_any_numerics<T, xellanix::type::number> = true>
 		constexpr bool operator>=(T const& rhs) const
 		{
 			return !operator<(rhs);
@@ -2088,7 +2092,7 @@ namespace xellanix::type
 
 		// Greater than or equal to operators
 		// Note: Epsilon factorization will be performed on decimal number comparisons
-		template<typename T, helper::enable_if_arithm<T> = true>
+		template<typename T, trait::enable_if_arithm<T> = true>
 		friend constexpr bool operator>=(T const lhs, xellanix::type::number const& rhs)
 		{
 			return rhs <= lhs;
@@ -2103,7 +2107,7 @@ namespace xellanix::type
 		// I-------------------------------I
 		// 
 		// Note: if the result is a decimal number, then the largest number that can be inputted and output without losing accuracy is 2 ^ 53 (9.007.199.254.740.992)
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		constexpr auto div(SignedT value) const
 		{
 			constexpr auto is_right_floating = std::is_floating_point_v<SignedT>;
@@ -2178,10 +2182,10 @@ namespace xellanix::type
 		// I-------------------------------I
 		// 
 		// Note: if the result is a decimal number, then the largest number that can be inputted and output without losing accuracy is 2 ^ 53 (9.007.199.254.740.992)
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		constexpr auto div(UnsignedT valueTemp) const
 		{
-			using _NonBoolT = typename std::conditional_t<helper::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
+			using _NonBoolT = typename std::conditional_t<trait::is_same_r_v<UnsignedT, bool>, unsigned char, UnsignedT>;
 			_NonBoolT value = valueTemp;
 
 			if (xellanix::math::equal(value, (UnsignedT)1))
@@ -2233,7 +2237,7 @@ namespace xellanix::type
 		// I-------------------------------I
 		// 
 		// Note: if the result is a decimal number, then the largest number that can be inputted and output without losing accuracy is 2 ^ 53 (9.007.199.254.740.992)
-		template<typename SignedT, helper::enable_if_signed<SignedT> = true>
+		template<typename SignedT, trait::enable_if_signed<SignedT> = true>
 		friend constexpr auto div(SignedT lhs_raw, xellanix::type::number const& rhs)
 		{
 			constexpr auto is_left_floating = std::is_floating_point_v<SignedT>;
@@ -2304,7 +2308,7 @@ namespace xellanix::type
 		// I-------------------------------I
 		// 
 		// Note: if the result is a decimal number, then the largest number that can be inputted and output without losing accuracy is 2 ^ 53 (9.007.199.254.740.992)
-		template<typename UnsignedT, helper::enable_if_unsigned<UnsignedT> = true>
+		template<typename UnsignedT, trait::enable_if_unsigned<UnsignedT> = true>
 		friend constexpr auto div(UnsignedT lhs_raw, xellanix::type::number const& rhs)
 		{
 			auto lhs = xellanix::utility::cast_to<unsigned long long>(lhs_raw);

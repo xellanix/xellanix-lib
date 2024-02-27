@@ -2,8 +2,12 @@
 #define XELLANIX_MATH_OP_H
 #endif // !XELLANIX_MATH_OP_H
 
-#ifndef XELLANIX_NUMBER_HELPER_H
-#include "number_helper.h"
+#ifndef XELLANIX_MATH_TRAIT_H
+#include "math_trait.h"
+#endif // !XELLANIX_MATH_TRAIT_H
+
+#ifndef XELLANIX_UTILITY_H
+#include "utility.h"
 #endif // !XELLANIX_UTILITY_H
 
 // Functions:
@@ -12,7 +16,8 @@
 // https://github.com/elbeno/constexpr/blob/master/src/include/cx_math.h
 namespace xellanix::math::detail
 {
-	template <typename FP, std::enable_if_t<std::is_floating_point_v<FP>, bool> = true>
+	//std::enable_if_t<std::is_floating_point_v<T>, bool>
+	template <typename FP, xellanix::type::trait::enable_if_floating_point<FP> = true>
 	inline constexpr FP ipow(FP x, int n)
 	{
 		return (n == 0) ? FP{ 1 } :
@@ -83,7 +88,21 @@ namespace xellanix::math::detail
 			std::numeric_limits<T>::quiet_NaN();
 	}
 
+	#if GCC_COMPILER
+	template <typename FP, xellanix::type::trait::enable_if_floating_point<FP> = true>
+	inline constexpr bool _is_inf(const FP fp)
+	{
+		return __builtin_isinf(fp);
+	}
+
+	template <typename FP, xellanix::type::trait::enable_if_floating_point<FP> = true>
+	inline constexpr bool _is_nan(const FP fp)
+	{
+		return __builtin_isnan(fp);
+	}
+	#elif MSVC_COMPILER
 	/// DERIVED FROM MSVC TYPE_TRAITS HEADER ///
+
 	template <class _FloatingType>
 	struct _Floating_type_traits;
 
@@ -132,7 +151,7 @@ namespace xellanix::math::detail
 	template <>
 	struct _Floating_type_traits<long double> : _Floating_type_traits<double> {};
 
-	template <typename traits, typename FP, xellanix::type::helper::enable_if_floating_point<FP> = true>
+	template <typename traits, typename FP, xellanix::type::trait::enable_if_floating_point<FP> = true>
 	inline constexpr auto _Float_abs_bits(const FP fp)
 	{
 		using _Uint_type = typename traits::_Uint_type;
@@ -141,7 +160,7 @@ namespace xellanix::math::detail
 		return bits & ~traits::_Shifted_sign_mask;
 	}
 
-	template <typename FP, xellanix::type::helper::enable_if_floating_point<FP> = true>
+	template <typename FP, xellanix::type::trait::enable_if_floating_point<FP> = true>
 	inline constexpr bool _is_inf(const FP fp)
 	{
 		using _Traits = xellanix::math::detail::_Floating_type_traits<FP>;
@@ -149,82 +168,85 @@ namespace xellanix::math::detail
 		return xellanix::math::detail::_Float_abs_bits<_Traits>(fp) == _Traits::_Shifted_exponent_mask;
 	}
 
-	template <typename FP, xellanix::type::helper::enable_if_floating_point<FP> = true>
+	template <typename FP, xellanix::type::trait::enable_if_floating_point<FP> = true>
 	inline constexpr bool _is_nan(const FP fp)
 	{
 		using _Traits = xellanix::math::detail::_Floating_type_traits<FP>;
 
 		return xellanix::math::detail::_Float_abs_bits<_Traits>(fp) > _Traits::_Shifted_exponent_mask;
 	}
+	#else
+	#endif // GCC_COMPILER
+
 }
 
 namespace xellanix::math
 {
 	// constexpr absolute "integers"
-	template<typename T, xellanix::type::helper::enable_if_integral<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_integral<T> = true>
 	inline constexpr std::make_unsigned_t<T> abs(T n)
 	{
 		return n < 0 ? 0ULL - n : n;
 	}
 
 	// constexpr absolute "floating types"
-	template<typename T, xellanix::type::helper::enable_if_floating_point<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_floating_point<T> = true>
 	inline constexpr T abs(T n)
 	{
 		return n < 0 ? -n : n;
 	}
 
 	// constexpr ceil "integers"
-	template<typename T, xellanix::type::helper::enable_if_integral<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_integral<T> = true>
 	inline constexpr T ceil(T x) noexcept
 	{
 		return x;
 	}
 
 	// constexpr ceil "floating types"
-	template<typename T, xellanix::type::helper::enable_if_floating_point<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_floating_point<T> = true>
 	inline constexpr T ceil(T x)
 	{
 		return x < T{ 0 } ? -xellanix::math::detail::floorP(-x) : xellanix::math::detail::ceilP(x);
 	}
 
 	// constexpr floor "integers"
-	template<typename T, xellanix::type::helper::enable_if_integral<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_integral<T> = true>
 	inline constexpr T floor(T x) noexcept
 	{
 		return x;
 	}
 
 	// constexpr floor "floating types"
-	template<typename T, xellanix::type::helper::enable_if_floating_point<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_floating_point<T> = true>
 	inline constexpr T floor(T x)
 	{
 		return x < T{ 0 } ? -xellanix::math::detail::ceilP(-x) : xellanix::math::detail::floorP(x);
 	}
 
 	// constexpr truncate "integers"
-	template<typename T, xellanix::type::helper::enable_if_integral<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_integral<T> = true>
 	inline constexpr T trunc(T x)
 	{
 		return x;
 	}
 
 	// constexpr truncate "floating types"
-	template<typename T, xellanix::type::helper::enable_if_floating_point<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_floating_point<T> = true>
 	inline constexpr T trunc(T x)
 	{
 		return x >= T{ 0 } ? xellanix::math::floor(x) : xellanix::math::ceil(x);
 	}
 
 	// constexpr modulo "integers"
-	template<typename T, xellanix::type::helper::enable_if_integral<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_integral<T> = true>
 	inline constexpr T mod(T number, T divisor)
 	{
 		return number % divisor;
 	}
 
 	// constexpr modulo "floating types"
-	template<typename T, xellanix::type::helper::enable_if_floating_point<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_floating_point<T> = true>
 	inline constexpr T mod(T number, T divisor)
 	{
 		if (divisor == T{ 0.0 } || xellanix::math::detail::_is_inf(divisor) || xellanix::math::detail::_is_nan(divisor))
@@ -239,7 +261,7 @@ namespace xellanix::math
 	}
 
 	// constexpr modulo "arithmetics"
-	template<typename L, typename R, xellanix::type::helper::enable_if_arithms<L, R> = true>
+	template<typename L, typename R, xellanix::type::trait::enable_if_arithms<L, R> = true>
 	inline constexpr auto mod(L number, R divisor)
 	{
 		using ct = typename std::common_type_t<L, R>;
@@ -248,14 +270,14 @@ namespace xellanix::math
 	}
 
 	// constexpr floored modulo "integers"
-	template<typename T, xellanix::type::helper::enable_if_integral<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_integral<T> = true>
 	inline constexpr T mod_floor(T number, T divisor)
 	{
 		return ((number % divisor) + divisor) % divisor;
 	}
 
 	// constexpr floored modulo "floating types"
-	template<typename T, xellanix::type::helper::enable_if_floating_point<T> = true>
+	template<typename T, xellanix::type::trait::enable_if_floating_point<T> = true>
 	inline constexpr T mod_floor(T number, T divisor)
 	{
 		if (divisor == T{ 0.0 } || xellanix::math::detail::_is_inf(divisor) || xellanix::math::detail::_is_nan(divisor))
@@ -270,7 +292,7 @@ namespace xellanix::math
 	}
 
 	// constexpr floored modulo "arithmetics"
-	template<typename L, typename R, xellanix::type::helper::enable_if_arithms<L, R> = true>
+	template<typename L, typename R, xellanix::type::trait::enable_if_arithms<L, R> = true>
 	inline constexpr auto mod_floor(L number, R divisor)
 	{
 		using ct = typename std::common_type_t<L, R>;
