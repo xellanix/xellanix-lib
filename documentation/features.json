@@ -96,8 +96,8 @@
                 {
                     "name": "nmin",
                     "type": "func",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::limit",
+                    "infile": "math_limit.h",
                     "description": "Returns the minimum value for a numeric type. Equivalent to std::numeric_limits<T>::min().",
                     "anyParams": [
                         {
@@ -116,8 +116,8 @@
                 {
                     "name": "nmax",
                     "type": "func",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::limit",
+                    "infile": "math_limit.h",
                     "description": "Returns the maximum value for a numeric type. Equivalent to std::numeric_limits<T>::max().",
                     "anyParams": [
                         {
@@ -136,8 +136,8 @@
                 {
                     "name": "limit_range",
                     "type": "func",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::limit",
+                    "infile": "math_limit.h",
                     "description": "Returns the minimum and maximum representable values for a given numeric type. Equivalent to std::pair{ nmin<T>(), nmax<T>() }.",
                     "anyParams": [
                         {
@@ -156,8 +156,8 @@
                 {
                     "name": "is_same_limit",
                     "type": "func",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::limit",
+                    "infile": "math_limit.h",
                     "description": "Checks if two numeric types share the same minimum and maximum representable values.",
                     "anyParams": [
                         {
@@ -181,106 +181,106 @@
                 {
                     "name": "enable_if_arithm",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_arithms",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_arithm_t",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_arithms_t",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_integral",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_integrals",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_floating_point",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_floating_points",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "is_same_r_v",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_same",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_same_t",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_any_numerics",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_signed",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_unsigned",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 },
                 {
                     "name": "enable_if_any_signed",
                     "type": "alias",
-                    "namespace": "xellanix::type::helper",
-                    "infile": "number_helper.h",
+                    "namespace": "xellanix::type::trait",
+                    "infile": "math_trait.h",
                     "description": ""
                 }
             ]
@@ -332,42 +332,42 @@
                     "name": "equal",
                     "type": "func",
                     "namespace": "xellanix::math",
-                    "infile": "compare_helper.h",
+                    "infile": "math_compare.h",
                     "description": ""
                 },
                 {
                     "name": "not_equal",
                     "type": "func",
                     "namespace": "xellanix::math",
-                    "infile": "compare_helper.h",
+                    "infile": "math_compare.h",
                     "description": ""
                 },
                 {
                     "name": "less",
                     "type": "func",
                     "namespace": "xellanix::math",
-                    "infile": "compare_helper.h",
+                    "infile": "math_compare.h",
                     "description": ""
                 },
                 {
                     "name": "less_eq",
                     "type": "func",
                     "namespace": "xellanix::math",
-                    "infile": "compare_helper.h",
+                    "infile": "math_compare.h",
                     "description": ""
                 },
                 {
                     "name": "greater",
                     "type": "func",
                     "namespace": "xellanix::math",
-                    "infile": "compare_helper.h",
+                    "infile": "math_compare.h",
                     "description": ""
                 },
                 {
                     "name": "greater_eq",
                     "type": "func",
                     "namespace": "xellanix::math",
-                    "infile": "compare_helper.h",
+                    "infile": "math_compare.h",
                     "description": ""
                 }
             ]
