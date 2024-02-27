@@ -8,3 +8,4 @@ Xellanix Libraries/x64/
 *.user
 documentation/.vscode
 /Xellanix Libraries/temp.h
+/Xellanix Libraries/main.cpp
