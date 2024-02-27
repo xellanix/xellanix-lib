@@ -7,3 +7,4 @@ Xellanix Libraries/x64/
 *.filters
 *.user
 documentation/.vscode
+/Xellanix Libraries/temp.h
