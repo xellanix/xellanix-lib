@@ -1,4 +1,122 @@
 let is_dark_theme = false;
+let search_filter = "fullname";
+let search_key = null;
+
+class FeatureItem {
+    constructor(index = 0, catIndex = 0, name = "", namespace = "", filename = "", description = "") {
+        this.index = index;
+        this.catIndex = catIndex;
+        this.name = name.toLowerCase();
+        this.namespace = namespace;
+        this.filename = filename.toLowerCase();
+        this.description = description.toLowerCase();
+    }
+
+    get fullname() {
+        return `${this.namespace}::${this.name}`;
+    }
+};
+
+const featureCats = [];
+const featureItems = [];
+
+function initiliazeSelectElement() {
+    const optionMenus = document.querySelectorAll(".select_menu");
+    optionMenus.forEach(optionMenu => {
+        const selectButton = optionMenu.querySelector(".select_button"),
+                options = optionMenu.querySelectorAll(".option"),
+                select_button_text = optionMenu.querySelector(".select_button_text");
+
+        selectButton.addEventListener("click", () => optionMenu.classList.toggle("active"));
+
+        const targetWidth = optionMenu.querySelector(".options").offsetWidth;
+        selectButton.style.width = `${targetWidth}px`;
+        
+        options.forEach(option => {
+            option.addEventListener("click", () => {
+                // Set the selected option to the select_button
+                const selectedOption = option.innerText;
+                select_button_text.innerText = selectedOption;
+                
+                // Hide the option popup after select a option
+                optionMenu.classList.remove("active");
+            });
+
+            if (option.dataset.optionDefault) {
+                // Set the selected option to the select_button
+                select_button_text.innerText = option.dataset.optionDefault;
+            }
+        });
+
+    });
+}
+initiliazeSelectElement();
+
+function adjustSearchCategory() {
+    for (const i in featureCats) {
+        const element = featureCats[i];
+
+        if (element.size <= 0) $(".feature_category").eq(i).addClass("hide_for_search");
+        else $(".feature_category").eq(i).removeClass("hide_for_search");
+    }
+}
+
+function searchFeatureByFilter(filterBase = "", index = 0, catIndex = 0) {
+    if (filterBase.indexOf(search_key) != -1) {
+        // Show the feature
+        $("#all_features").children().eq(index).removeClass("hide_for_search");
+        featureCats[catIndex].add(index);
+    }
+    else {
+        // Hide it
+        $("#all_features").children().eq(index).addClass("hide_for_search");
+        featureCats[catIndex].delete(index);
+    }
+}
+
+function searchFeature() {
+    for (const item of featureItems) {
+        switch (search_filter) {
+            case "name":
+                searchFeatureByFilter(item.name, item.index, item.catIndex);
+                break;
+            case "namespace":
+                searchFeatureByFilter(item.namespace, item.index, item.catIndex);
+                break;
+            case "fullname":
+                searchFeatureByFilter(item.fullname, item.index, item.catIndex);
+                break;
+            case "file":
+                searchFeatureByFilter(item.filename, item.index, item.catIndex);
+                break;
+            case "description":
+                searchFeatureByFilter(item.description, item.index, item.catIndex);
+                break;
+            default:
+                searchFeatureByFilter(item.name, item.index, item.catIndex);
+                break;
+        }
+    }
+
+    adjustSearchCategory();
+}
+
+$("#search_filter .select_button").click(function() {
+    $("#search_section").toggleClass("stay_focus");
+})
+
+$("#search_filter .option").click(function() {
+    search_filter = $(this).text().substring(3);
+    $("#search_section").removeClass("stay_focus");
+    
+    if (isAvailable(search_key)) searchFeature();
+});
+
+$("#search_box").on("input", function() {
+    search_key = $(this).val().toLowerCase();
+
+    searchFeature();
+});
 
 function isAvailable(value = "") {
     if (typeof value === "string" && value.length === 0) return false;
@@ -17,7 +135,7 @@ function setURLParams(name, value, is_remove = false) {
     window.history.pushState({}, "", url.toString());
 };
 
-$(".theme_option_radio").on("change", function() {
+$(".theme_option_radio").change(function() {
     const _this = $(this);
     if (_this.is(':checked')) {
         const theme_id = _this.val();
@@ -28,7 +146,6 @@ $(".theme_option_radio").on("change", function() {
 });
 
 $(document).ready(function(e) {
-    console.log("trig");
     const url = new URL(window.location.href);
     const searchParams = url.searchParams;
 
@@ -96,7 +213,7 @@ function getFeatures() {
         $("#xlib-version").text(`version ${parsed.version}`);
 
         parsed.xlib.sort(sortByName).forEach(category => {
-            $("#all_features").append(`<div class="text_item title">${category.name}</div>`);
+            $("#all_features").append(`<div class="text_item title feature_category">${category.name}</div>`);
             {
                 const toc = $(`<div class="text_item subtitle expander">${category.name}</div>`).appendTo("#table_of_content_");
                 
@@ -121,6 +238,7 @@ function getFeatures() {
             const toc_feature = document.createElement("div");
             toc_feature.className = "toc_item";
 
+            const featureIndexes = new Set();
             category.items.sort(sortByName).forEach(feature => {
                 const feature_namespace = feature.namespace;
                 const feature_name = feature.name;
@@ -175,13 +293,25 @@ function getFeatures() {
                     <p class="text_item normal description_text">${feature.description}</p>
                     ${params}
                 </section>`;
+
+                const currentIndex = $("#all_features").children().length;
+                featureItems.push(new FeatureItem(currentIndex,
+                                                    featureCats.length, 
+                                                    feature_name, 
+                                                    feature_namespace, 
+                                                    feature.infile, 
+                                                    feature.description));
                 
                 $("#all_features").append(item);
                 
                 $(toc_feature).append(`<div class="text_item">
                                             <a href="#${feature_id}">${feature_name}</a>
                                         </div>`);
+
+                featureIndexes.add(currentIndex);
             });
+
+            featureCats.push(featureIndexes);
             $("#table_of_content_").append(toc_feature);
         });
 

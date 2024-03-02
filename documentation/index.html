@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xellanix Library Documentation</title>
     <link rel="stylesheet" href="styles.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+    
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +16,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 </head>
@@ -24,17 +26,36 @@
             <div class="table_of_content" id="table_of_content_"></div>
         </aside>
         <main class="content_area" id="all_features">
-            <div id="theme_selector">
-                <input type="radio" name="theme_selector" value="lighttheme" id="light_theme" class="theme_option_radio" checked>
-                <label for="light_theme" class="theme_option">
-                    <img src="assets/sun-filled.svg">
-                    <span>Light</span>
-                </label>
-                <input type="radio" name="theme_selector" value="darktheme" id="dark_theme" class="theme_option_radio">
-                <label for="dark_theme" class="theme_option">
-                    <img src="assets/moon-filled.svg">
-                    <span>Dark</span>
-                </label>
+            <div id="fixed_topbar">
+                <div id="search_section">
+                    <i class="ti ti-search"></i>
+                    <input type="text" placeholder="Search" id="search_box">
+                    <div class="select_menu" id="search_filter">
+                        <div class="select_button">
+                            <span class="select_button_text">by fullname</span>
+                            <i class="ti ti-chevron-down"></i>
+                        </div>
+                        <ul class="options">
+                            <li class="option">by name</li>
+                            <li class="option">by namespace</li>
+                            <li class="option" data-option-default="by fullname">by fullname</li>
+                            <li class="option">by file</li>
+                            <li class="option">by description</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="theme_selector">
+                    <input type="radio" name="theme_selector" value="lighttheme" id="light_theme" class="theme_option_radio" checked>
+                    <label for="light_theme" class="theme_option">
+                        <img src="assets/sun-filled.svg">
+                        <span>Light</span>
+                    </label>
+                    <input type="radio" name="theme_selector" value="darktheme" id="dark_theme" class="theme_option_radio">
+                    <label for="dark_theme" class="theme_option">
+                        <img src="assets/moon-filled.svg">
+                        <span>Dark</span>
+                    </label>
+                </div>
             </div>
             <div class="text_item header accent_color" style="margin: 14px 0 0;">Xellanix Libraries</div>
             <div class="text_item" id="xlib-version" style="margin-bottom: 14px;">version 0.0.0.0</div>

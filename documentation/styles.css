@@ -42,19 +42,145 @@ p {
     --primitiveType-color: #a2e57b;
     --definedType-color: #FFC324;
 
+    color-scheme: dark;
     background-color: var(--bg-color);
     color: hsl(0, 0%, 90%);
-    color-scheme: dark;
+}
+
+input {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: inherit;
+}
+
+::placeholder {
+    color: inherit;
+    opacity: .6; /* Firefox */
+}
+  
+::-ms-input-placeholder { /* Edge 12-18 */
+    color: inherit;
+    opacity: .6;
+}
+
+#fixed_topbar {
+    z-index: 1;
+    display: inline-flex;
+    flex-direction: row;
+    position: fixed;
+    right: 42px;
+    gap: 32px;
+}
+
+#search_section {
+    --search-section-radius: 8px;
+    --search-section-space: 14px;
+    --search-section-width: 220px;
+
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--overlay-color);
+    box-shadow: 0px 0px 42px 0px rgba(0, 0, 0, .15);
+    border-radius: var(--search-section-radius);
+    transition: width 175ms ease-out;
+    padding: 0px;
+    gap: 0px;
+    width: var(--search-section-width);
+    overflow: hidden;
+}
+
+#search_section:focus-within, #search_section:hover, #search_section.stay_focus {
+    --search-section-width: 389px;
+}
+
+#search_section > * {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+#search_section > i {
+    margin-left: var(--search-section-space);
+    margin-right: var(--search-section-space);
+    font-size: 16px;
+    opacity: .6;
+}
+
+#search_box {
+    border-radius: var(--search-section-radius);
+    padding: 10px 0px;
+    width: 175px;
+    align-self: stretch;
+}
+
+.select_menu {
+    --chevron-size: 16px;
+
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-left: var(--search-section-space);
+}
+
+.select_menu .select_button {
+    display: inline-flex;
+    padding: 10px 14px;
+    align-items: center;
+    justify-content: space-between;
+    opacity: .6;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-left: 1.75px solid var(--theme-selector-bg);
+}
+
+.select_menu .select_button i {
+    font-size: var(--chevron-size);
+    transform: rotate(0deg);
+    transition: transform 133ms ease-out;
+}
+
+.select_menu.active .select_button i {
+    transform: rotate(-180deg);
+}
+
+.select_menu .options {
+    display: inline-flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    margin-top: 16px;
+    padding: 8px;
+    box-shadow: 0px 0px 42px 0px rgba(0, 0, 0, .15);
+    border-radius: var(--search-section-radius);
+    background-color: var(--overlay-color);
+    visibility: hidden;
+}
+
+.select_menu.active .options {
+    visibility: visible;
+}
+
+.options .option {
+    display: inline-flex;
+    cursor: pointer;
+    align-items: center;
+    padding: 8px 10px;
+    white-space: nowrap;
+    padding-right: calc(var(--chevron-size) + 8px + 1.75px);
+    border-radius: calc(.5 * var(--search-section-radius));
+}
+
+.options .option:hover {
+    background-color: var(--theme-selector-bg);
 }
 
 #theme_selector {
     --theme-selector-radius: 8px;
 
     display: inline-flex;
-    z-index: 1;
     flex-direction: row;
-    position: fixed;
-    right: 42px;
     width: 88px;
     background-color: var(--theme-selector-bg);
     box-shadow: 0px 0px 42px 0px rgba(0, 0, 0, .15);
@@ -237,19 +363,22 @@ p {
 .expander {
     cursor: pointer;
 }
-  
+
 .expander:after {
-    content: '›';
-    font-weight: 400;
+    font-family: "tabler-icons";
+    font-style: normal;
+    
+    content: '\ea61';
+    font-weight: 600;
     float: right;
     margin-right: 4px;
     margin-left: 28px;
-    transform: rotate(0deg) scale(1.2);
+    transform: rotate(0deg) scale(.8);
     transition: transform 133ms ease-out;
 }
   
 .isExpanded:after {
-    transform: rotate(90deg) scale(1.2);
+    transform: rotate(90deg) scale(.8);
 }
 
 .content_area {
@@ -274,6 +403,14 @@ p {
     overflow: none;
     gap: 6px;
     margin-bottom: 40px;
+}
+
+.feature_item.hide_for_search {
+    display: none;
+}
+
+.feature_category.hide_for_search {
+    display: none;
 }
 
 .feature_item .type_icon {
